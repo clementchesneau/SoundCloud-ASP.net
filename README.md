@@ -15,3 +15,13 @@
 ## Screenshots
 
 - Home page
+![image](https://user-images.githubusercontent.com/10097537/119515592-4a94fa00-bd76-11eb-8d50-2844c1cd5df1.png)
+
+- Player dark
+![image](https://user-images.githubusercontent.com/10097537/119515889-89c34b00-bd76-11eb-8bd4-317970e51905.png)
+
+- Player Light
+![image](https://user-images.githubusercontent.com/10097537/119515939-95af0d00-bd76-11eb-9502-efb9440459b1.png)
+
+- Add songs
+![image](https://user-images.githubusercontent.com/10097537/119515994-a495bf80-bd76-11eb-8032-6bfca4c9b125.png)
