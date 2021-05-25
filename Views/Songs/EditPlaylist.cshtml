@@ -1,0 +1,95 @@
+﻿@model ViewModel2
+
+@{
+    ViewData["Title"] = "Edit Playlist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit Your Playlist</h1>
+
+<h4 class="weird-color">@Model.playlist.Name</h4>
+<hr />
+<div class="my-4">
+    <a class="add-buttons" data-toggle="modal" data-target="#addSongsModal"><i class="fas fa-plus pr-2"></i>Add Song</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Genre</th>
+            <th scope="col" style="width: 5%;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (SongModel song in Model.SongsAdded)
+        {
+            <tr>
+                <th scope="row"><i class="play-from-list fas fa-play"><input type="hidden" name="@song.SongId" value="@song.SongPath" /></i></th>
+                <td>@song.SongName</td>
+                <td>@song.SongArtist</td>
+                <td>@song.SongGenre</td>
+                <td>
+                    <form asp-action="DeleteFromPlaylist">
+                        <input type="hidden" data-val="true" data-val-required="The SongId field is required." name="SongId" value="@song.SongId" />
+                        <input type="hidden" data-val="true" data-val-required="The SongId field is required." name="PlaylistId" value="@Model.playlist.PlaylistId" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <button type="submit" class="delete-from-playlist a-table d-inline fas fa-minus-circle"></button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div>
+    <a class="add-buttons" asp-action="Index"><i class="fas fa-arrow-left pr-2"></i>Back to List</a>
+</div>
+
+<!-- Add Song Modal -->
+<div class="modal fade" id="addSongsModal" tabindex="-1" role="dialog" aria-labelledby="addSongsModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form asp-action="AddSongs">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="PlaylistId" value="@Model.playlist.PlaylistId" />
+                <div class="modal-header d-flex justify-content-between">
+                    <div></div>
+                    <h5 class="modal-title" id="addSongModalTitle">Manage Songs in <strong class="weird-color">@Model.playlist.Name</strong> Playlist</h5>
+                    <div class="close-times" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="modal-body px-5 pt-0" style="display: inline-block; height: 500px; width: 90%; overflow-y: scroll;">
+                    <div class="pt-2" id="box-searchbar">
+                        <input type="text" id="SongsInPlaylist" class="searchBar" onkeyup="searchSongOrPlaylist(this.id)" placeholder="Search for titles..">
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Artist</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (SongModel song in Model.SongModels)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <input class="form-check-input ml-0" type="checkbox" name="@song.SongId" value="@song.SongId" @if (Model.SongsAdded.Contains(song)) { <text> checked</text> } />
+                                    </th>
+                                    <td>@song.SongName</td>
+                                    <td>@song.SongArtist</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

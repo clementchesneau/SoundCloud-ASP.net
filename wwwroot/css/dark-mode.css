@@ -1,0 +1,92 @@
+﻿[data-theme="dark"] {
+    background-color: #1A1A1D !important;
+    color: #fff;
+}
+
+[data-theme="dark"] .navbar {
+    background-color: #1A1A1D !important;
+    color: #fff;
+}
+
+[data-theme="dark"] .navbar-brand {
+    color: #fff;
+}
+
+[data-theme="dark"] .navbar-brand:hover {
+    color: #fff;
+}
+
+[data-theme="dark"] .navbar .nav-link {
+    color: #4E4E50 !important;
+}
+
+[data-theme="dark"] .navbar .nav-link:hover {
+    color: #C3073F !important;
+}
+
+[data-theme="dark"] .add-buttons {
+    color: #C3073F !important;
+    border: solid 2px #C3073F;
+}
+
+[data-theme="dark"] .add-buttons:hover {
+    background-color: #C3073F;
+    color: white !important;
+}
+
+[data-theme="dark"] .border-bottom, [data-theme="dark"] .border-top {
+    border-color: #333333 !important;
+}
+
+[data-theme="dark"] .table {
+    color: white;
+}
+
+[data-theme="dark"] thead, [data-theme="dark"] h2 {
+    color: #a8a8a8;
+}
+
+[data-theme="dark"] tr, [data-theme="dark"] th, [data-theme="dark"] td {
+    border-color: #4E4E50 !important;
+}
+
+[data-theme="dark"] tbody tr:hover {
+    background-color: #4E4E50 !important;
+    color: white;
+}
+
+[data-theme="dark"] .modal {
+    color: white;
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: #1A1A1D;
+}
+
+[data-theme="dark"] #player {
+    background-color: #3A3A3D;
+}
+
+[data-theme="dark"] hr {
+    border-color: #4E4E50;
+}
+
+[data-theme="dark"] wave > wave {
+    border-right: solid 2px white !important;
+}
+
+[data-theme="dark"] .a-table {
+    color: white;
+}
+
+[data-theme="dark"] input[type='range'] {
+    background-color: #4E4E50;
+}
+
+[data-theme="dark"] #box-searchbar {
+    background-color: #1A1A1D;
+}
+
+[data-theme="dark"] .playing {
+    background-color: #4E4E50;
+}

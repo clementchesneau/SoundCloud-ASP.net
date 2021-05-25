@@ -1,0 +1,212 @@
+﻿@model ViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<p id="error" class="d-none">@TempData["error"]</p>
+<div class="container">
+    <h1 class="display-4 text-center">Music Player</h1>
+    <div class="mb-5">
+        <h2 class="mb-4">My Playlists</h2>
+        <div class="d-flex justify-content-between">
+            <div>
+                <a class="add-buttons" data-toggle="modal" data-target="#createPlaylistModal"><i class="fas fa-plus pr-2"></i>New Playlist</a>
+            </div>
+            <input type="text" id="Playlists" class="searchBar" onkeyup="searchSongOrPlaylist(this.id)" placeholder="Search for titles..">
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" style="width: 5%;"></th>
+                    <th scope="col" style="width: 5%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Playlist playlist in Model.Playlists)
+                {
+                    <tr>
+                        <th scope="row"><a href="Songs/PlayPlaylist/@playlist.PlaylistId" class="a-table"><i class="fas fa-play"><input type="hidden" name="@playlist.PlaylistId" value="@playlist.PlaylistId" /></i></a></th>
+                        <td>@playlist.Name</td>
+                        <td>@playlist.Description</td>
+                        <td class="text-center"><a href="Songs/EditPlaylist/@playlist.PlaylistId" class="a-table"><i class="fas fa-edit"><input type="hidden" name="@playlist.PlaylistId" value="@playlist.PlaylistId" /></i></a></td>
+                        <td><i data-toggle="modal" data-target="#deletePlaylistModal" class="fas fa-trash-alt"></i></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-5">
+        <h2 class="mb-4">My Songs</h2>
+        <div class="d-flex justify-content-between">
+            <div>
+                <a class="add-buttons" data-toggle="modal" data-target="#addSongModal"><i class="fas fa-plus pr-2"></i>Add Song</a>
+            </div>
+            <input type="text" id="Songs" class="searchBar" onkeyup="searchSongOrPlaylist(this.id)" placeholder="Search for titles..">
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Artist</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col" style="width: 5%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (SongModel song in Model.SongModels)
+                {
+                    <tr>
+                        <th scope="row"><i class="play-from-list fas fa-play"><input type="hidden" name="@song.SongId" value="@song.SongPath" /></i></th>
+                        <td>@song.SongName</td>
+                        <td>@song.SongArtist</td>
+                        <td>@song.SongGenre</td>
+                        <td><i data-toggle="modal" data-target="#deleteSongModal" class="fas fa-trash-alt"></i></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Song Modal -->
+<div class="modal fade" id="addSongModal" tabindex="-1" role="dialog" aria-labelledby="addSongModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-header d-flex justify-content-between">
+                    <div></div>
+                    <h5 class="modal-title" id="addSongModalTitle">Add Song</h5>
+                    <div class="close-times" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="modal-body px-5">
+                    <div class="form-group">
+                        <label class="control-label" for="SongName">Name</label>
+                        <input type="text" placeholder="Lemonade" class="form-control" data-val="true" data-val-length="The Name must be at least 2 and at max 100 characters long." data-val-length-max="100" data-val-length-min="2" data-val-required="The Name field is required." id="SongName" maxlength="100" name="SongName" value="" autofocus />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="SongName" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="SongArtist">Artist</label>
+                        <input type="text" placeholder="Nav, Don toliver & Gunna" class="form-control" data-val="true" data-val-length="The Name must be at least 2 and at max 100 characters long." data-val-length-max="100" data-val-length-min="2" data-val-required="The Name field is required." id="SongArtist" maxlength="50" name="SongArtist" value="" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="SongArtist" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="SongGenre">Genre</label>
+                        <select id="SongGenre" name="SongGenre" data-val="true" class="custom-select" data-val-required="The Name field is required." value="" aria-label="Genre select">
+                            <option selected>Genre</option>
+                            <option value="Rap">Rap</option>
+                            <option value="Hip-Hop">Hip-Hop</option>
+                            <option value="RnB">RnB</option>
+                            <option value="Classic">Classic</option>
+                            <option value="Country">Country</option>
+                            <option value="Funk">Funk</option>
+                            <option value="Punk">Punk</option>
+                            <option value="Blues">Blues</option>
+                            <option value="K-pop">K-pop</option>
+                            <option value="Folk">Folk</option>
+                            <option value="Raggae">Raggae</option>
+                            <option value="Indie">Indie</option>
+                            <option value="Afro">Afro</option>
+                            <option value="Jazz">Jazz</option>
+                            <option value="Rock">Rock</option>
+                            <option value="Electro">Electro</option>
+                            <option value="Pop">Pop</option>
+                        </select>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="SongGenre" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="SongFile">Your Music</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" data-val="true" data-val-required="The Song File field is required." accept="audio/*" id="SongFile" name="SongFile">
+                            <label class="custom-file-label" id="SongFileLabel" for="file">Choose your music</label>
+                        </div>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="SongFile" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Create Playlist Modal -->
+<div class="modal fade" id="createPlaylistModal" tabindex="-1" role="dialog" aria-labelledby="createPlaylistModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form asp-action="CreatePlaylist">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-header d-flex justify-content-between">
+                    <div></div>
+                    <h5 class="modal-title" id="createPlaylistModalTitle">Create Playlist</h5>
+                    <div class="close-times" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="modal-body px-5">
+                    <div class="form-group">
+                        <label class="control-label" for="Name">Name</label>
+                        <input class="form-control" type="text" data-val="true" data-val-length="The Name must be at least 2 and at max 50 characters long." data-val-length-max="50" data-val-length-min="2" data-val-required="The Name field is required." id="Name" maxlength="50" name="Name" value="" placeholder="My Playlist #1" autofocus>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="Description">Desciption</label>
+                        <textarea class="form-control" placeholder="Give your playlist a catchy description" data-val="true" data-val-length="The Desciption must be at least 2 and at max 255 characters long." data-val-length-max="255" data-val-length-min="2" data-val-required="The Desciption field is required." id="Description" maxlength="255" name="Description" value=""></textarea>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">CREATE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Song Modal -->
+<div class="modal fade" id="deleteSongModal" tabindex="-1" role="dialog" aria-labelledby="deleteSongModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between">
+                <div></div>
+                <h5 class="modal-title" id="deleteSongModalTitle">Are you sure ?</h5>
+                <div class="close-times" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body px-5">
+                <p class="text-center">The song will be remove from all playlists !</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <form asp-action="DeleteSong">
+                    <input type="hidden" data-val="true" data-val-required="The SongId field is required." id="SongId" name="SongId" value="" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Playlist Modal -->
+<div class="modal fade" id="deletePlaylistModal" tabindex="-1" role="dialog" aria-labelledby="deletePlaylistModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between">
+                <div></div>
+                <h5 class="modal-title" id="deletePlaylistModalTitle">Are you sure ?</h5>
+                <div class="close-times" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <form asp-action="deletePlaylist">
+                    <input type="hidden" data-val="true" data-val-required="The SongId field is required." id="PlaylistId" name="PlaylistId" value="" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

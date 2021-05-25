@@ -1,0 +1,36 @@
+﻿@model ViewModel2
+
+@{
+    ViewData["Title"] = "Edit Playlist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Listen to Your Playlist</h1>
+
+<h4 class="weird-color">@Model.playlist.Name</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (SongModel song in Model.SongsAdded)
+        {
+            <tr>
+                <th scope="row"><i class="play-from-list fas fa-play"><input type="hidden" name="@song.SongId" value="@song.SongPath" /></i></th>
+                <td>@song.SongName</td>
+                <td>@song.SongArtist</td>
+                <td>@song.SongGenre</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div>
+    <a class="add-buttons" asp-action="Index"><i class="fas fa-arrow-left pr-2"></i>Back to List</a>
+</div>

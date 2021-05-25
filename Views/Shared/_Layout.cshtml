@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ASPCSoundCloud</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/dark-mode.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASPCSoundCloud</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <div class="custom-control custom-switch pl-5">
+                        <input type="checkbox" class="custom-control-input" id="darkSwitch">
+                        <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+                    </div>
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Songs" asp-action="Index">MusicPlayer</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container" style="margin-bottom: 10%;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div id="player" class="d-none align-items-center">
+        <div class="container d-flex align-items-center">
+            <div class="mr-4">
+                <p class="text-center">TITRE</p>
+                <div id="playMenu" class="d-flex">
+                    <div id="backward" class="play-menu-element d-flex justify-content-center align-items-center" style="box-sizing: border-box; width: 50px;">
+                        <i class="fas fa-backward"></i>
+                    </div>
+                    <div id="mute" class="play-menu-element d-flex justify-content-center align-items-center" style="box-sizing: border-box; width: 50px;">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <div id="playpause" class="play-menu-element d-flex justify-content-center align-items-center" style="box-sizing: border-box; width: 50px;">
+                        <i class="fas fa-pause"></i>
+                    </div>
+                    <div id="forward" class="play-menu-element d-flex justify-content-center align-items-center" style="box-sizing: border-box; width: 50px;">
+                        <i class="fas fa-forward"></i>
+                    </div>
+                </div>
+                <div class="pt-3 d-flex justify-content-center">
+                    <input id="volume" type="range" value="0.2" max="1" min="0" step="0.01" />
+                </div>
+                
+            </div>
+            <div id="waveForm" class="w-100"></div>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - ASPCSoundCloud - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/dark-mode-switch.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
